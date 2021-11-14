@@ -1,11 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useParams} from "react-router-dom"
 import GetMovieHooks from "../../hooks/GetMovieHooks";
+import CheckToken from "../../hooks/CheckToken";
+import { useNavigate } from "react-router-dom";
+
 
 function Movie() {
   let { name } = useParams();
 	const [data] = GetMovieHooks(name);
- 
+	const { checkJwtToken } = CheckToken();
+	const navigate = useNavigate();
+
+ useEffect(() => {
+		if (checkJwtToken()) {
+			navigate("/fetch-movie/:name");
+		}
+ }, []);
 	return (					
 		<div>
 			<p>{data.Title}</p>

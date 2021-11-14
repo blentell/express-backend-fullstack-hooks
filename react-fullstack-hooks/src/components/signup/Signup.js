@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import FirstNameHooks from "../../hooks/FirstNameHooks";
 import LastNameHooks from "../../hooks/LastNameHooks";
 import UsernameHooks from "../../hooks/UsernameHooks";
 import PasswordHooks from "../../hooks/PasswordHooks";
 import EmailHooks from "../../hooks/EmailHooks";
+import CheckToken from "../../hooks/CheckToken";
 
 import "./Signup.css";
 
 function Signup() {
-	const [firstName, handleFirstNameOnChange, firstNameError, setOnFocus1, setOnBlur1] = FirstNameHooks();
+	const navigate = useNavigate();
+	const { checkJwtToken } = CheckToken();
+
+	useEffect(() => {
+		if (checkJwtToken()) {
+			navigate("/protected-home");
+		}
+	}, []);
+
+	const [
+		firstName,
+		handleFirstNameOnChange,
+		firstNameError,
+		setOnFocus1,
+		setOnBlur1,
+	] = FirstNameHooks();
 	const [
 		lastName,
 		handleLastNameOnChange,
@@ -20,12 +37,8 @@ function Signup() {
 		setOnFocus,
 		setOnBlur,
 	] = LastNameHooks();
-	const [
-		username,
-		handleUsernameOnChange,
-		usernameError,		
-		setOnBlur2,
-	] = UsernameHooks();
+	const [username, handleUsernameOnChange, usernameError, setOnBlur2] =
+		UsernameHooks();
 	const [
 		password,
 		handlePasswordOnChange,
@@ -149,4 +162,3 @@ function Signup() {
 }
 
 export default Signup;
-

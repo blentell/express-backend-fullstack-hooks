@@ -1,11 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import GetMoviesHooks from "../../hooks/GetMoviesHooks";
 import { Link } from "react-router-dom";
 import "./Movies.css"
+import CheckToken from "../../hooks/CheckToken";
+import { useNavigate } from "react-router-dom";
 
 function Movies() {
-  const [search, data, error] = GetMoviesHooks();
-
+	const [search, data, error] = GetMoviesHooks();
+	const { checkJwtToken } = CheckToken();
+	const navigate = useNavigate();
+console.log("Movies data: ", data)
+ useEffect(() => {
+		if (checkJwtToken()) {
+			navigate("/protected-home");
+		}
+ }, []);
   return (
 		<div className="moviePosters">
       {data.map((item) => {
