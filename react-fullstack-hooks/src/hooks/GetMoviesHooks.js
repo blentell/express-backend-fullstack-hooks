@@ -5,12 +5,12 @@ const GetMoviesHooks = () => {
 	const [search, setSearch] = useState("");
 	const [data, setData] = useState([]);
 	const [error, setError] = useState("");
-	// const [fetchData, setFetchData] = useState("");
 
+// console.log("getMoviesSearch:", search)
 	function randomizePoster() {
 		let searchArray = [
 			"Superman",
-			"lord of the ring",
+			"lord of the rings",
 			"batman",
 			"Pokemon",
 			"Harry Potter",
@@ -22,16 +22,10 @@ const GetMoviesHooks = () => {
 		return searchArray[randomize];
 	}
 
-	function SearchMovies() {
-		console.log("i have been clicked");
-		console.log("search function:", search);
-		// setSearch(search);
-		// // useEffect(() => {
-		const fetchData2 = async () => {
+	async function SearchMovies() {
 			const payload = await axios.get(
 				`https://www.omdbapi.com/?apikey=12384fbb&s=${search}&type=movie`
-			);
-
+			);	
 			if (payload.data.Response === "False") {
 				setError("No movie by that name");
 			} else {
@@ -43,20 +37,18 @@ const GetMoviesHooks = () => {
 				});
 				Promise.all(promiseMovieArray2)
 					.then((result2) => {
-						setError("");
-						console.log("search result: ", data);
-
-						setData(result2);
+						setError("");						
+						// setData(result2);
+						let resultArray = result2.map((item) => {
+							return item.data;
+						})
+						setData(resultArray)
 					})
 					.catch((e) => {
 						setError(e.response.data);
 					});
-			}
-		};
 		
-		fetchData2();
-		return [data];
-		// }, []);
+		};
 	}
 
 	useEffect(() => {
@@ -84,10 +76,10 @@ const GetMoviesHooks = () => {
 					});
 			}
 		};
-		setSearch(fetchData(randomizePoster()));
+		fetchData(randomizePoster());
 	}, []);
 
-	return [search, data, error, setSearch, { SearchMovies }];
+	return [search, data, error, setSearch, SearchMovies];
 };
 
 export default GetMoviesHooks;

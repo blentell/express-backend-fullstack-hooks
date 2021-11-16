@@ -1,27 +1,32 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
-import Movies from "../movies/Movies"
 import GetMoviesHooks from "../../hooks/GetMoviesHooks";
 
 
-function Nav({ user, setUser, setData }) {
-	const [search, data, error, setSearch, { SearchMovies }] = GetMoviesHooks();
+function Nav({ user, setUser, setIsSearch, setSearch }) {
 	let linkTitle1 = user ? user.username : "Sign up";
 	let link1 = user ? "/profile" : "/sign-up";
 	let linkTitle2 = user ? "Logout" : "Sign in";
 	let link2 = user ? "/" : "/sign-in";
 	let linkTitle3 = user ? "Movies" : "";
 	let link3 = user ? "/protected-home" : "/sign-in";
+	let linkTitle4 = user ? "Favorites" : "";
+	let link4 = user ? "/protected-home/favorites" : "/sign-in";
 	let logoutButton = user ? logout : () => {};
+	// const [, , , setSearch] = GetMoviesHooks();
+	
 
+	async function handleSearchMovie(){
+		setIsSearch(true);
+	}
+	
 	function logout() {
 		setUser(null);
 		window.localStorage.removeItem("jwtToken");
 	}
 	async function handleOnChange(e) {
-		e.preventDefault();
-		setSearch(e.target.value);
+		e.preventDefault();		
+		setSearch(e.target.value);		
 	}
 
 	return (
@@ -51,6 +56,11 @@ function Nav({ user, setUser, setData }) {
 								{linkTitle3}
 							</Link>
 						</li>
+						<li className="nav-item">
+							<Link to={link4} className="nav-link">
+								{linkTitle4}
+							</Link>
+						</li>
 					</ul>
 				</div>
 				<input
@@ -60,7 +70,7 @@ function Nav({ user, setUser, setData }) {
 					aria-label="Search"
 					onChange={handleOnChange}
 				/>
-				<button className="btn btn-outline-success" onClick={SearchMovies}>
+				<button className="btn btn-outline-success" onClick={handleSearchMovie}>
 					Search
 				</button>
 			</div>

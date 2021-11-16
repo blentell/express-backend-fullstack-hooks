@@ -72,7 +72,7 @@ function Signup() {
 				progress: undefined,
 			});
 		} catch (e) {
-			console.log(e.response);
+			// console.log(e.response);
 			toast.error(e.response.data.error);
 		}
 	}
