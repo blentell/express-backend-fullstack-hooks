@@ -8,6 +8,7 @@ var mongoose = require("mongoose");
 var cors = require("cors");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users/usersRouter");
+var movieRouter = require("./routes/movies/movieRouter");
 
 
 mongoose
@@ -29,6 +30,8 @@ app.use(cookieParser());
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/movies", movieRouter);
+
 
 
 // catch 404 and forward to error handler
