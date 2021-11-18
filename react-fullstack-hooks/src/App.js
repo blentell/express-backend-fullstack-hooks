@@ -14,7 +14,7 @@ import GetMoviesHooks from "./hooks/GetMoviesHooks";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import FavoriteMovies from "./hooks/FavoriteMovies";
+import Favorites from "./components/movies/Favorites";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -144,7 +144,7 @@ function App() {
 						path="/protected-home/favorites"
 						element={
 							<PrivateRoute>
-								<FavoriteMovies data={data} />
+								<Favorites />
 							</PrivateRoute>
 						}
 					/>

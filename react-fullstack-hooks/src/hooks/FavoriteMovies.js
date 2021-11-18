@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../components/movies/Movies.css";
 import CheckToken from "./CheckToken";
 import { useNavigate } from "react-router-dom";
-import Favorites from "./Favorites"
+import Favorites from "../components/movies/Favorites"
 
 function FavoriteMovies({ data }) {
   const { checkJwtToken } = CheckToken();

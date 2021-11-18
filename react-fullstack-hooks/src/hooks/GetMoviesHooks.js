@@ -23,6 +23,7 @@ const GetMoviesHooks = () => {
 	}
 
 	async function SearchMovies() {
+		// window.history.pushState("", "", `/protected-home?s=${movieTitle}`);
 			const payload = await axios.get(
 				`https://www.omdbapi.com/?apikey=12384fbb&s=${search}&type=movie`
 			);	
