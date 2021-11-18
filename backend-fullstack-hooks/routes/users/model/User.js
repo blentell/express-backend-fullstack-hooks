@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
         },
-        favoriteMovies: [{type: mongoose.Schema.ObjectId, ref: "favorites"}],
+        favoriteMovies: [{type: mongoose.Schema.ObjectId, ref: "movie"}],
     },
     {
         timestamps: true,

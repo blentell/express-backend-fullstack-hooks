@@ -8,7 +8,7 @@ const MovieSchema = new mongoose.Schema(
 		moviePoster: {
 			type: String,
     },
-    movieLink: {
+    movieRating: {
       type: String,
     },
 		movieOwner: {
